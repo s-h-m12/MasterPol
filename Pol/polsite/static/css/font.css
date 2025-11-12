@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'SegoeUI';
+    src: url('fonts/SegoeUI.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    color: '#67BA80';
+    font-family: 'SegoeUI', sans-serif;
+}
