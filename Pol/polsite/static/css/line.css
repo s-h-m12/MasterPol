@@ -1,0 +1,5 @@
+    .vertical-line {
+        border-left: 2px solid black; /* Line thickness, style, and color */
+        height: 100px; /* Height of the line */
+        display: inline-block; /* Or block, depending on layout needs */
+    }

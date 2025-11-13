@@ -20,5 +20,7 @@ from polsite import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main_page_view)
+    path('', views.main_page_view),
+    path('add/', views.editadd_page_view),
+    path('history/', views.history_page_view)
 ]

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>МастерПол - Редактирование и добавление</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/line.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div style="background-color: #F4E8D3">
+            <h1 class="uk-heading-small" style="color: #67BA80;">
+                <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
+                МастерПол - Редактирование и добавление
+            </h1>
+        </div>
+    </header>
+
+    <form style="background-color: #F4E8D3; max-width: 1000px; border-radius: 20px; margin-left: auto; margin-right: auto; padding: 20px;">
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Тип
+                <select class="uk-select uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                    <option>ЗАО</option>
+                    <option>ООО</option>
+                    <option>ПАО</option>
+                    <option>ОАО</option>
+                </select>
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Партнер
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Директор
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Телефон
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Рейтинг
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">ИНН
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Почта
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Адрес
+                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            </p>
+        </div>
+
+
+    </form>
+    <div style="display: flex; gap: 100px; margin: 20px; margin-left: auto; margin-right: auto; width: fit-content;">
+         <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Отмена</button>
+        <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Добавить</button>
+         <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Сохранить</button>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit-icons.min.js"></script>
+</body>
+</html>

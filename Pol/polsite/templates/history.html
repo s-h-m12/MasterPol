@@ -3,9 +3,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>МастерПол - Главная</title>
+    <title>МастерПол - История реализации продукции партнером</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/line.css' %}">
 </head>
 
 <body>
@@ -14,20 +15,19 @@
         <div style="background-color: #F4E8D3">
             <h1 class="uk-heading-small" style="color: #67BA80;">
                 <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
-                МастерПол - Главная
+                МастерПол - История реализации продукции партнером
             </h1>
         </div>
     </header>
 
-    {% for partner in partners %}
+    {% for partner_product in partner_products %}
     <div class="uk-card uk-card-body" style="background-color: #F4E8D3; margin: 20px; border-radius: 20px; max-width: 1200px; color: #67BA80;
     margin-left: auto; margin-right: auto;">
-        <h3 class="uk-card-title" style="color: #67BA80;">{{ partner.partner_type }} | {{ partner.partner_name }}
-            <a href="add/"><img src="{% static 'images/edit.png' %}" href="" alt="edit" style=" width: 36px; height: 36px; float: right;"></a>
+        <h3 class="uk-card-title" style="color: #67BA80;">{{ partner_product.id }} | {{ partner_product.partner.partner_name }}
         </h3>
-        <p>{{ partner.director }}</p>
-        <p>+{{ partner.phone }}</p>
-        <p>Рейтинг: {{ partner.rating }}/10</p>
+        <p>{{ partner_product.product.product_name }}</p>
+        <p>{{ partner_product.sale_date }}</p>
+        <p>Количество: {{ partner_product.quantity }}</p>
     </div>
     {% endfor %}
 
