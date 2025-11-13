@@ -25,10 +25,16 @@ class ProductType(models.Model):
     type_name = models.CharField(max_length=100)
     coefficient = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.type_name} (коэфф.: {self.coefficient})"
+
 # Модель-справочник типа материала
 class MaterialType(models.Model):
     material_type_name = models.CharField(max_length=100)
     defect_percentage = models.DecimalField(max_digits=5, decimal_places=4)
+
+    def __str__(self):
+        return f"{self.material_type_name} (брак: {float(self.defect_percentage) * 100:.1f}%)"
 
 # Модель Продукта
 class Products(models.Model):

@@ -13,8 +13,10 @@
 
     <header>
         <div style="background-color: #F4E8D3">
-            <h1 class="uk-heading-small" style="color: #67BA80;">
-                <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
+            <h1 class="uk-heading-small" style="color: #67BA80; display: flex; align-items: center;">
+                <a href="{% url 'main_page' %}" style="text-decoration: none; margin-right: 15px;">
+                    <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
+                </a>
                 МастерПол - История реализации продукции партнером
             </h1>
         </div>

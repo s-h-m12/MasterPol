@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>МастерПол - Редактирование и добавление</title>
+    <title>МастерПол - {% if is_editing %}Редактирование{% else %}Добавление{% endif %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
     <link rel="stylesheet" href="{% static 'css/line.css' %}">
@@ -13,74 +13,152 @@
 
     <header>
         <div style="background-color: #F4E8D3">
-            <h1 class="uk-heading-small" style="color: #67BA80;">
-                <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
-                МастерПол - Редактирование и добавление
+            <h1 class="uk-heading-small" style="color: #67BA80; display: flex; align-items: center;">
+                <a href="{% url 'main_page' %}" style="text-decoration: none; margin-right: 15px;">
+                    <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100">
+                </a>
+                МастерПол - {% if is_editing %}Редактирование партнера{% else %}Добавление партнера{% endif %}
             </h1>
         </div>
     </header>
 
-    <form style="background-color: #F4E8D3; max-width: 1000px; border-radius: 20px; margin-left: auto; margin-right: auto; padding: 20px;">
+    {% if error %}
+    <div class="uk-alert-danger" uk-alert style="max-width: 1000px; margin: 20px auto; border-radius: 10px;">
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST" style="background-color: #F4E8D3; max-width: 1000px; border-radius: 20px; margin-left: auto; margin-right: auto; padding: 20px;">
+        {% csrf_token %}
+
         <div class="uk-margin">
             <p style="color: #67BA80;">Тип
-                <select class="uk-select uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
-                    <option>ЗАО</option>
-                    <option>ООО</option>
-                    <option>ПАО</option>
-                    <option>ОАО</option>
+                <select class="uk-select uk-form-width-large" name="partner_type" style="border-radius: 20px; float: right; margin: 2px" required>
+                    <option value="">Выберите тип</option>
+                    <option value="ЗАО" {% if form_data.partner_type == "ЗАО" %}selected{% endif %}>ЗАО</option>
+                    <option value="ООО" {% if form_data.partner_type == "ООО" %}selected{% endif %}>ООО</option>
+                    <option value="ПАО" {% if form_data.partner_type == "ПАО" %}selected{% endif %}>ПАО</option>
+                    <option value="ОАО" {% if form_data.partner_type == "ОАО" %}selected{% endif %}>ОАО</option>
                 </select>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">Партнер
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="text" name="partner_name"
+                       value="{{ form_data.partner_name|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="Введите название партнера" required>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">Директор
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="text" name="director"
+                       value="{{ form_data.director|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="Введите ФИО директора" required>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">Телефон
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="text" name="phone"
+                       value="{{ form_data.phone|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="+7 (XXX) XXX-XX-XX" required>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">Рейтинг
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="number" name="rating"
+                       value="{{ form_data.rating|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="1-10" min="1" max="10" required>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">ИНН
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="text" name="inn"
+                       value="{{ form_data.inn|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="10 или 12 цифр" required>
             </p>
         </div>
 
         <div class="uk-margin">
             <p style="color: #67BA80;">Почта
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+                <input class="uk-input uk-form-width-large" type="email" name="email"
+                       value="{{ form_data.email|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="example@mail.ru" required>
+            </p>
+        </div>
+
+        <!-- Адресные поля сделаем необязательными для тестирования -->
+        <hr style="border-color: #67BA80;">
+
+        <h3 style="color: #67BA80;">Адрес (необязательно)</h3>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Регион
+                <input class="uk-input uk-form-width-large" type="text" name="region_name"
+                       value="{{ form_data.region_name|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="Московская область">
             </p>
         </div>
 
         <div class="uk-margin">
-            <p style="color: #67BA80;">Адрес
-                <input class="uk-input uk-form-width-large" type="text" aria-label="Large" style="border-radius: 20px; float: right; margin: 2px">
+            <p style="color: #67BA80;">Город
+                <input class="uk-input uk-form-width-large" type="text" name="city_name"
+                       value="{{ form_data.city_name|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="Москва">
             </p>
         </div>
 
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Улица
+                <input class="uk-input uk-form-width-large" type="text" name="street_name"
+                       value="{{ form_data.street_name|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="Ленина">
+            </p>
+        </div>
 
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Дом
+                <input class="uk-input uk-form-width-large" type="text" name="house"
+                       value="{{ form_data.house|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="15А">
+            </p>
+        </div>
+
+        <div class="uk-margin">
+            <p style="color: #67BA80;">Почтовый индекс
+                <input class="uk-input uk-form-width-large" type="text" name="postal_code"
+                       value="{{ form_data.postal_code|default:'' }}"
+                       style="border-radius: 20px; float: right; margin: 2px"
+                       placeholder="123456">
+            </p>
+        </div>
+
+        <!-- Кнопки ВНУТРИ формы -->
+        <div style="display: flex; gap: 100px; margin: 20px; margin-left: auto; margin-right: auto; width: fit-content; padding: 20px;">
+            <a href="{% url 'main_page' %}" class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Отмена</a>
+            {% if is_editing %}
+                <button type="submit" class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Сохранить</button>
+            {% else %}
+                <button type="submit" class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Добавить</button>
+            {% endif %}
+        </div>
     </form>
-    <div style="display: flex; gap: 100px; margin: 20px; margin-left: auto; margin-right: auto; width: fit-content;">
-         <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Отмена</button>
-        <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Добавить</button>
-         <button class="uk-button" style="border-radius: 20px; background-color: #67BA80; color: #FFFFFF;">Сохранить</button>
-    </div>
+
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit-icons.min.js"></script>
 </body>
